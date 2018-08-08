@@ -1,0 +1,90 @@
+.header {
+  width: 100%;
+}
+
+.header-navbar {
+  height: 34px;
+  background-color: $brand-success;
+}
+
+.header-navbar .navbar-inner {
+  height: 34px;
+  line-height: 34px;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: $brand-success;
+
+  a { color: #ffffff; }
+}
+
+.navbar-inner {
+  .main-nav {
+    padding-left: 20px;
+    float: left;
+  }
+
+  .sub-nav {
+    float: right;
+  }
+
+  .nav-list {
+    display: block;
+  }
+}
+
+.nav-list li {
+  list-style: none;
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 20px;
+  white-space: nowrap;
+  a {
+    color: #fff;
+
+    &:hover {
+      color: darken($brand-success, 20%);
+    }
+  }
+}
+
+li.more-node {
+  position: relative;
+  margin-right: 0px;
+  padding-right: 40px;
+}
+
+.h-dropdown {
+  position: absolute;
+  top: 33px;
+  left: -37px;
+  list-style: none;
+  background-color: $brand-success;
+  width: 300px;
+  z-index: 999999;
+  display: none;
+}
+
+.h-dropdown li {
+  margin: 0;
+  padding: 0;
+  margin-right: 0;
+  float: left;
+}
+
+.h-dropdown li a {
+  display: block;
+  text-align: center;
+  width: 100px;
+  &:hover {
+    background-color: #FFFFFF;
+  }
+}
+
+.sub-nav .nav-list li {
+  padding-left: 20px;
+  border-left: 1px solid darken($brand-success, 10%);
+}
+
+.header-breadcrumb {
+  
+}

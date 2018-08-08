@@ -1,0 +1,59 @@
+- if @article.persisted?
+  - path = admin_article_path(page: params[:page], node_id: params[:node_id])
+  - method = 'put'
+- else
+  - path = admin_articles_path(page: params[:page], node_id: params[:node_id])
+  - method = 'post'
+= form_for @article, url: path, class: 'form', method: method, multipart: true do |f|
+  .form-group.form-group-bordered
+    label 文章标题 *
+    = f.text_field :title, class: 'form-control', placeholder: '输入文章标题'
+
+  .checkbox
+    label
+      = f.check_box :linked, class: 'checkbox'
+      | 加入内链
+  .form-group.form-group-bordered
+    = f.text_field :link_word, class: 'form-control input-sm', placeholder: '内链词'
+
+  .form-group.form-group-bordered
+    label 所属栏目 *
+    .clearfix
+      = f.select :node_id, nested_set_options(Node) { |i| '─' * i.level + i.name }, {}, class: 'selectpicker', "data-live-search": "true", title: '-- 选择栏目 --'
+  .form-group.form-group-bordered
+    label 文章来源
+    = f.text_field :source, class: 'form-control input-sm', placeholder: '文章来源'
+  .form-group.form-group-bordered
+    label 投稿
+    = f.text_field :writer, class: 'form-control input-sm', placeholder: '作者'
+  .form-group.form-group-bordered
+    label 文章题图
+    = f.file_field :thumb
+  .form-group.form-group-bordered
+    label 内容 *
+    = f.fields_for :article_body do |body_field|
+      = body_field.text_area :body, class: 'redactor-editor'
+                        
+  .form-group.form-group-bordered
+    label SEO Title
+    = f.text_field :seo_title, placeholder: 'SEO Title', class: 'form-control input-sm'
+  .form-group.form-group-bordered
+    label SEO Keywords
+    = f.text_field :seo_keywords, placeholder: 'SEO Keywords', class: 'form-control input-sm'
+  .form-group.form-group-bordered
+    label SEO Description
+    = f.text_area :seo_description, placeholder: 'SEO Description', class: 'form-control input-sm'
+  .checkbox
+    label
+      = f.check_box :focus, class: 'checkbox'
+      | 焦点轮播
+    | &nbsp;&nbsp;
+    label
+      = f.check_box :hot, class: 'checkbox'
+      | 头条
+    | &nbsp;&nbsp;
+    label
+      = f.check_box :recommend, class: 'checkbox'
+      | 首页推荐                 
+  .form-group
+    button.btn.btn-primary.btn-lg 提交文章

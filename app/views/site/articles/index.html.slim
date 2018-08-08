@@ -1,0 +1,24 @@
+= javascript_include_tag 'tt/index'
+= stylesheet_link_tag 'tt/views/index'
+
+.main.clearfix
+
+  = render 'site/share/node_bar'
+
+  .f-left.index-main
+    .nodes
+      ul.node-list
+        - (@node.children.presence || @node.parent.try(:children) || [@node]).each_with_index do |node, i|
+          - klass = []
+          - klass << 'active' if node.slug == params[:slug]
+          - klass << 'nml' if i.zero?
+          li class=(klass.join(' '))
+            a href="#{articles_path(node.slug)}"= node.name
+    .articles-section.m-top10
+      = render partial: 'site/application/index_article', collection: @articles, as: :article
+
+    .pagination
+      = will_paginate @articles, inner_window: 1
+
+  .f-right.index-right.right-sidebar
+    = render 'site/articles/share_sidebar'

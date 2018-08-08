@@ -1,0 +1,42 @@
+doctype html
+html
+  head
+    = render_seo_meta_tags
+    = stylesheet_link_tag "tt_mobile/app"
+    = csrf_meta_tags
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta content="mobile" name="applicable-device"
+    meta name="MobileOptimized" content="width"
+    meta name="HandheldFriendly" content="true"
+    meta name="format-detection" content="telephone=no"
+    link rel="miphtml" href=url_for(host: "#{Setting.mobile_domain}/mip")
+    
+  body.article-detail-page
+    article.article-detail
+      h1.title= @article.title
+      .article-info 
+        em= @article.created_at.strftime('%F')
+        em= @article.source
+        a href="#{articles_path(@article.node.slug)}"= @article.node.name
+      - SiteAd.mobilearticletop.actived.each do |ad|
+        .ad-container= raw ad.value 
+
+      .article-content
+        = replace_inner_link_domain(article_format @article.body_html)
+
+      - SiteAd.mobilearticlebottom.actived.each do |ad|
+        .ad-container= raw ad.value
+
+    .article-list-section
+      h2 热文推荐
+      .articles-list
+        = render partial: 'mobile/share/article_list', locals: { articles: @more_articles }
+
+    - SiteAd.mobilebodybottom.actived.each do |ad|
+      .ad-container= raw ad.value
+
+    - SiteAd.mobileglobal.actived.each do |ad|
+      .ad-container= raw ad.value
+      
+      = render 'mobile/mip/ld_json'
+    = render 'site/share/bjh'

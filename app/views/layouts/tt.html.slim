@@ -1,0 +1,57 @@
+doctype html
+html
+  head
+    = render_seo_meta_tags
+    = javascript_include_tag 'tt/app'
+    = stylesheet_link_tag 'tt/app', media: 'all'
+    = favicon_link_tag SiteConfig.actived.favicon.url
+    = csrf_meta_tags
+    meta charset="utf-8"    
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name="renderer" content="webkit"
+    meta content="pc,mobile" name="applicable-device"
+    meta name="MobileOptimized" content="width"
+    meta name="HandheldFriendly" content="true"
+
+    /[if lt IE 9]
+        = javascript_include_tag 'html5shiv'
+
+  body class="#{controller_name}"
+    .header
+      .header-navbar
+        .navbar-inner.clearfix
+          .main-nav
+            - if action_name == 'index'
+              a href="#{root_url}" title="网站首页"
+                span= "#{SiteConfig.actived.site_name} · #{SiteConfig.actived.site_slogan}"
+            - else
+              ul.nav-list.clearfix
+                - Node.where(is_nav: true).order('sortrank DESC').each_with_index do |node, i|
+                  li.f-left
+                    a href="#{articles_path(node.slug)}"= node.short_name
+                li.f-left.more-node
+                  a href="javascript:;" 更多 >
+                  ul.h-dropdown.clearfix
+                    - Node.roots.where(is_nav: false).order('sortrank DESC').each_with_index do |node, i|
+                      li.dropdown-item
+                        a href="#{articles_path(node.slug)}"= node.short_name
+                                           
+          .sub-nav
+            ul.nav-list.clearfix
+              li.f-left
+                a href="#{channels_path}" title="热门专题" 专题
+              li.f-left
+                a href="#{tags_path}" title="热门标签" 标签
+              li.f-left
+                a href="#{feed_path(format: 'xml')}" title="feed" RSS
+    = yield
+
+    script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=#{Setting.changyan.id}"
+
+    - SiteAd.global.each do |ad|
+      = raw ad.value
+
+    - if controller_name == 'articles' && action_name == 'show'
+      = render 'site/share/ld_json'
+    = render 'site/share/bjh'
+

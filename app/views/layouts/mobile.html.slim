@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    = render_seo_meta_tags
+    = javascript_include_tag 'mobile/app'
+    = stylesheet_link_tag "mobile/themes/#{SiteConfig.actived.theme.presence || 'green'}"
+    = csrf_meta_tags
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    meta content="mobile" name="applicable-device"
+    meta http-equiv="Cache-Control" content="no-transform"    
+
+  body class="#{controller_name}"
+    .header-logo
+      a.logo-brand style="background-image: url('#{SiteConfig.actived.mobile_logo.url}');" href="#{mobile_root_path}" title="#{SiteConfig.actived.site_slogan}"
+    .header-nav role="navigation"
+      ul.list-unstyled.clearfix
+        - cache('mobile-navigation') do
+          - Node.where(is_nav: true).order('sortrank DESC').each_with_index  do |node, ind|
+            li
+              a href="#{mobile_articles_path(node.slug)}"= node.short_name
+
+    .main-container.container
+      - SiteAd.mobilelisttop.actived.each do |ad|
+        .ad-container= raw ad.value 
+      = yield
+      - SiteAd.mobilelistbottom.actived.each do |ad|
+        .ad-container= raw ad.value
+        
+    footer.text-center
+      .copyright= SiteConfig.actived.copyright.html_safe
+
+    - SiteAd.mobileglobal.actived.each do |ad|
+      .ad-container= raw ad.value

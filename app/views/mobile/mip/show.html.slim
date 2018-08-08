@@ -1,0 +1,38 @@
+doctype html
+<html mip>
+  head
+    = render_seo_meta_tags
+    = render 'mobile/mip/shared_header'
+    link rel="canonical" href="#{article_url(@article)}"
+
+  body.article-detail-page
+    article.article-detail
+      h1.title= @article.title
+      .article-info 
+        em= @article.created_at.strftime('%F')
+        em= @article.source
+        mip-link href="#{mip_node_url(@article.node.slug)}"= @article.node.name
+
+      - SiteAd.miparticletop.actived.each do |ad|
+        .ad-container= raw ad.value 
+
+      .article-content
+        = replace_mip_images(mip_article_format @article.body_html)
+
+      - SiteAd.miparticlebottom.actived.each do |ad|
+        .ad-container= raw ad.value
+
+      <mip-share layout="container"></mip-share>
+
+    .article-list-section
+      h2 热文推荐
+      .articles-list.mip-articles-list
+        = render partial: 'mobile/mip/mip_article_list', locals: { articles: @more_articles }
+
+    - SiteAd.mipbodybottom.actived.each do |ad|
+      .ad-container= raw ad.value
+
+    = render 'mobile/mip/shared_footer'
+    - if ['articles', 'mip'].include?(controller_name) && action_name == 'show'
+      = render 'mobile/mip/ld_json'
+    = render 'site/share/bjh'

@@ -1,0 +1,119 @@
+//= require twbs-admin/bootstrap.min
+//= require twbs-admin/sb-admin-2
+//= require twbs-admin/timeline
+//= require twbs-admin/menu
+//= require redactor-rails
+//= require bootstrap-select
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+.pt-30 {
+  padding-top: 30px;
+}
+
+// Login Page
+.login-panel .captcha {
+  margin-left: 5px;
+}
+
+.bootstrap-select .dropdown-menu {
+  z-index: 9999;
+}
+
+.form-group-bordered {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+
+  input.form-control, textarea {
+    max-width: 400px;
+  }
+}
+
+#page-wrapper .article-form {
+  .redactor-box {
+    width: 700px;
+  }
+
+  .redactor-editor {
+    min-height: 200px;
+  }
+}
+
+#page-wrapper .node-list {
+  .node-list-group {}
+
+  .node-item {
+    border-left: 1px dashed #DDD;
+    padding-left: 5px;
+
+    & > .node-item {
+      margin-left: 14px;
+    }
+
+    & > .node-item .inner {
+      background-color: #f5f5f5;
+      // margin: 4px 0px 4px 4px;
+    }
+  }
+
+  .node-item .inner {
+    background-color: #f5f5f5;
+    padding: 6px 6px;
+    border-radius: 4px;
+    margin: 4px 0px 8px 4px;
+  }
+
+  .node-name {
+    margin-left: 5px;
+  }
+
+  .ops {
+    span {
+      margin-right: 10px;
+      margin-left: 10px;
+      color: #ddd;
+    }
+  }
+}
+
+// Table Style Begin
+.table > tbody > tr > td {
+  font-size: 12px;
+  &.w5  { width: 5%;  }
+  &.w15 { width: 15%; }
+  &.w20 { width: 20%; }
+  &.w10 { width: 10%; }
+  &.w30 { width: 30%; }
+  &.w40 { width: 40%; }
+}
+// Aticles Style End
+
+.contract, .explode {
+  display: inline-block;
+  margin-right: 5px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  width: 11px;
+  height: 11px;
+}
+
+.contract {
+  background-image: image-url('admin/contract.gif');
+}
+
+.explode {
+  background-image: image-url('admin/explode.gif');
+}
+
+
+
+
+
+
+
+
+
+
+
+
