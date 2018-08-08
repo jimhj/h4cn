@@ -6,7 +6,7 @@ lock '3.4.1'
 set :application, 'h4'
 
 set :deploy_to, "~/www/#{fetch(:application)}/"
-# set :repo_url, 'git@github.com-one_cms_v2:jimhj/one_cms_v2.git'
+set :repo_url, 'git@github.com:jimhj/h4cn.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

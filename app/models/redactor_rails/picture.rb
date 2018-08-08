@@ -14,7 +14,9 @@ class RedactorRails::Picture < RedactorRails::Asset
     else
       Setting.qiniu.host
     end
-    "#{File.join(host, image_path).to_s}!#{version}"
+    # "#{File.join(host, image_path).to_s}!#{version}"
+
+    "#{File.join(host, image_path).to_s}"
   end
 
   after_create do
